@@ -225,11 +225,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 
 /* ============================================
-   BLOCO 03 — PROBLEMA (fundo escuro)
+   BLOCO 03 — PROBLEMA (fundo escuro + foto panoramica direita)
 ============================================ */
 .problem{
-  background:var(--night);
-  background-image:linear-gradient(135deg,var(--night) 0%,var(--night-2) 100%);
+  background-color:var(--night);
+  background-image:
+    linear-gradient(90deg,var(--night) 0%,rgba(20,25,36,0.92) 45%,rgba(20,25,36,0.55) 75%,rgba(20,25,36,0.35) 100%),
+    url('assets/pilha-caixas.png');
+  background-size:cover;
+  background-position:right center;
+  background-repeat:no-repeat;
   padding:88px 32px;color:#fff;
   position:relative;overflow:hidden;
 }
@@ -266,16 +271,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 .problem__x svg{width:12px;height:12px;stroke:#fff;stroke-width:2.5}
 
-/* Coluna direita — foto de pilha de caixas + overlay texto serif */
+/* Coluna direita — apenas ancora o quote sobre a foto (bg agora fica na secao) */
 .problem__aside{
   position:relative;height:100%;min-height:340px;
-  border-radius:8px;overflow:hidden;
-  /* Placeholder — trocar por /assets/pilha-caixas.jpg quando cliente enviar foto real */
-  background-color:#3A2E20;
-  background-image:
-    linear-gradient(90deg,rgba(20,15,10,0.6) 0%,rgba(20,15,10,0.15) 45%,transparent 100%),
-    url('assets/pilha-caixas.png');
-  background-size:cover;background-position:center;
   display:flex;align-items:center;justify-content:flex-start;
   padding:44px 32px;
 }
