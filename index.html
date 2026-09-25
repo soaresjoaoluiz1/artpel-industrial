@@ -174,7 +174,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   font-size:13px;font-weight:600;
   letter-spacing:0.16em;text-transform:uppercase;
   line-height:1.65;
-  color:var(--brand-light);
+  color:#fff;
 }
 
 /* ============================================
@@ -329,54 +329,60 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 
 /* ============================================
-   BLOCO 05 — SEGMENTOS (creme esquerda + foto direita)
+   BLOCO 05 — SEGMENTOS (foto direita com fade + pill branca de icones)
 ============================================ */
 .segments{
+  position:relative;overflow:hidden;
   background:var(--cream);
   color:var(--ink);
-  overflow:hidden;
+  padding:88px 32px 96px;
+}
+/* Foto ocupa metade direita e desbota pra creme na diagonal esquerda,
+   criando conexao suave com a area do texto */
+.segments::before{
+  content:'';
+  position:absolute;top:0;right:0;bottom:0;left:35%;
+  background:
+    linear-gradient(90deg,var(--cream) 0%,rgba(245,244,241,0.75) 18%,rgba(245,244,241,0.25) 42%,transparent 60%),
+    url('assets/pilha-caixas-artpel.png') right center / cover no-repeat;
+  z-index:0;
 }
 .segments__inner{
-  max-width:1520px;margin:0 auto;
-  display:grid;
-  grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);
-  gap:0;align-items:stretch;
-  min-height:420px;
+  max-width:1360px;margin:0 auto;
+  position:relative;z-index:1;
 }
-.segments__left{padding:80px 32px 80px 32px;display:flex;flex-direction:column;justify-content:center}
-.segments__head{max-width:520px;margin-bottom:44px}
+.segments__head{max-width:560px;margin-bottom:52px}
+.segments__row{
+  display:flex;align-items:center;gap:28px;
+}
+/* Pill branca com sombra — transpassa a coluna esquerda entrando sobre a foto */
 .icons-row{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:18px;align-items:start;
+  background:#fff;
+  border-radius:80px;
+  padding:24px 38px;
+  box-shadow:0 12px 44px rgba(20,15,10,0.10),0 2px 8px rgba(20,15,10,0.04);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:22px;
+  flex:1;
+  max-width:920px;
 }
-.seg-ic{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.seg-ic{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;min-width:0;flex:1}
 .seg-ic__box{
-  width:48px;height:48px;color:var(--brand);
+  width:44px;height:44px;color:var(--brand);
+  display:flex;align-items:center;justify-content:center;
 }
 .seg-ic__box svg{width:100%;height:100%;stroke-width:1.4}
 .seg-ic__tx{
-  font-size:13px;font-weight:600;line-height:1.3;
+  font-size:12.5px;font-weight:600;line-height:1.3;
   color:var(--ink);
 }
-
-.segments__right{
-  position:relative;min-height:100%;
-  /* Placeholder — trocar por /assets/pilha-caixas-artpel.jpg */
-  background-color:#1F2A38;
-  background-image:
-    linear-gradient(90deg,transparent 0%,rgba(20,26,38,0.35) 55%,rgba(20,26,38,0.75) 100%),
-    url('assets/pilha-caixas-artpel.png');
-  background-size:cover;background-position:center left;
-  display:flex;align-items:center;justify-content:flex-end;
-  padding:60px 44px 60px 20px;
-}
 .segments__vlabel{
-  font-size:15px;font-weight:600;
+  font-size:14px;font-weight:600;
   letter-spacing:0.22em;text-transform:uppercase;
   line-height:1.6;color:#fff;
-  max-width:180px;text-align:right;
-  text-shadow:0 2px 12px rgba(0,0,0,0.4);
+  max-width:170px;text-align:right;
+  text-shadow:0 2px 12px rgba(0,0,0,0.5);
+  padding-right:16px;flex-shrink:0;
 }
 
 /* ============================================
@@ -431,7 +437,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   overflow:hidden;
 }
 .factory__inner{
-  max-width:1520px;margin:0 auto;
+  max-width:1360px;margin:0 auto;
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:0;align-items:stretch;
@@ -556,15 +562,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
    BLOCO 09+10 — FAQ + FORMULÁRIO (split creme + preto)
 ============================================ */
 .contact-wrap{
+  max-width:1360px;margin:0 auto;
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
   gap:0;
   overflow:hidden;
+  padding:0 32px 88px;
 }
 /* FAQ esquerda (creme) */
 .faq{
   background:var(--cream);color:var(--ink);
-  padding:80px 60px;
+  padding:60px 44px 60px 0;
 }
 .faq__head{max-width:420px;margin-bottom:36px}
 .faq__list{list-style:none;display:flex;flex-direction:column;gap:0}
@@ -593,7 +601,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .form-side{
   background:var(--night);
   background-image:linear-gradient(135deg,var(--night) 0%,var(--night-2) 100%);
-  padding:80px 60px;color:#fff;
+  padding:60px;color:#fff;
+  border-radius:8px;
 }
 .form-side__head{margin-bottom:36px}
 .form-side__h2{
@@ -740,11 +749,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .problem__inner{grid-template-columns:1fr;gap:36px}
   .problem__aside{grid-column:span 1;min-height:220px;padding:32px 24px}
   .cards{grid-template-columns:repeat(2,1fr);gap:18px}
-  .segments__inner{grid-template-columns:1fr;min-height:auto}
-  .segments__left{padding:64px 20px 48px}
-  .segments__right{min-height:280px;padding:44px 24px}
-  .segments__vlabel{max-width:none;text-align:left}
-  .icons-row{grid-template-columns:repeat(4,1fr);gap:24px 12px}
+  .segments{padding:64px 20px}
+  .segments::before{left:0;opacity:0.15}
+  .segments__row{flex-direction:column;gap:22px}
+  .segments__vlabel{max-width:none;text-align:left;padding-right:0;color:var(--ink);text-shadow:none}
+  .icons-row{padding:22px 16px;border-radius:24px;flex-wrap:wrap;gap:20px 12px;max-width:none}
+  .seg-ic{flex:1 1 25%;min-width:80px}
   .steps{grid-template-columns:1fr 1fr;gap:36px 22px}
   .step__arrow{display:none}
   .factory__inner{grid-template-columns:1fr;min-height:auto}
@@ -753,8 +763,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .metrics{grid-template-columns:repeat(2,auto);gap:28px 40px}
   .social__inner{grid-template-columns:1fr;gap:32px}
   .testimonial{flex:0 0 calc((100% - 22px) / 2)}
-  .contact-wrap{grid-template-columns:1fr}
-  .faq,.form-side{padding:56px 20px}
+  .contact-wrap{grid-template-columns:1fr;padding:0 20px 56px;gap:24px}
+  .faq{padding:56px 0 0}
+  .form-side{padding:44px 24px}
   .footer__top{flex-direction:column;align-items:flex-start;gap:24px}
   .footer__nav{gap:22px;flex-wrap:wrap}
   .footer__bottom{flex-direction:column;gap:8px;align-items:flex-start}
@@ -1013,12 +1024,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <section class="segments" id="segmentos">
   <div class="segments__inner">
 
-    <div class="segments__left">
-      <div class="segments__head">
-        <span class="section-eyebrow">Segmentos atendidos</span>
-        <h2 class="section-h2">Embalagens para diferentes indústrias e aplicações.</h2>
-      </div>
+    <div class="segments__head">
+      <span class="section-eyebrow">Segmentos atendidos</span>
+      <h2 class="section-h2">Embalagens para diferentes indústrias e aplicações.</h2>
+    </div>
 
+    <div class="segments__row">
       <div class="icons-row">
         <div class="seg-ic">
           <div class="seg-ic__box">
@@ -1063,11 +1074,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <div class="seg-ic__tx">Outros<br>segmentos</div>
         </div>
       </div>
-    </div>
 
-    <aside class="segments__right">
       <p class="segments__vlabel">Embalagens sob medida para o seu segmento</p>
-    </aside>
+    </div>
 
   </div>
 </section>
