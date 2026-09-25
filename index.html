@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Art Pel Embalagens — Caixas de papelão sob medida, produção própria e atendimento para indústrias com fornecimento recorrente. 26 anos de mercado em São José/SC.">
+<title>Art Pel Embalagens — Embalagens de papelão para indústrias</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* Paleta Art Pel — extraída do print de referência */
+  --brand:#9A7B54;           /* Marrom acobreado (logo box + CTA primário) */
+  --brand-dark:#7A5F3E;      /* Hover / accent mais fechado */
+  --brand-light:#D4B896;     /* Bege claro (eyebrow, texto vertical direita) */
+  --ink:#2A2119;             /* Preto quente pra textos header/menu */
+  --ink-soft:#5A4D3E;        /* Cinza texto secundário */
+  --line:#E8E1D6;            /* Divisor claro sépia */
+  --bg:#FFFFFF;              /* Fundo header/site */
+  --hero-overlay-1:rgba(20,15,10,0.82);
+  --hero-overlay-2:rgba(30,22,15,0.35);
+  --wa:#25D366;              /* Verde WhatsApp */
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ============================================
+   HEADER
+============================================ */
+.hdr{
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.hdr__inner{
+  max-width:1360px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 32px;gap:32px;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand__logo{width:44px;height:44px;object-fit:contain;flex-shrink:0}
+.brand__wm{display:flex;flex-direction:column;line-height:1}
+.brand__name{font-weight:800;font-size:20px;letter-spacing:0.02em;color:var(--ink)}
+.brand__tag{font-weight:500;font-size:10.5px;letter-spacing:0.28em;color:var(--ink-soft);margin-top:4px}
+
+.nav{display:flex;align-items:center;gap:34px}
+.nav a{
+  font-size:14.5px;font-weight:500;color:var(--ink);
+  transition:color .15s;padding:8px 0;
+}
+.nav a:hover{color:var(--brand)}
+
+.cta-hdr{
+  display:inline-flex;align-items:center;
+  background:var(--brand);color:#fff;
+  padding:12px 22px;border-radius:4px;
+  font-weight:600;font-size:14.5px;
+  transition:background .2s;
+}
+.cta-hdr:hover{background:var(--brand-dark)}
+
+/* ============================================
+   HERO
+============================================ */
+.hero{
+  position:relative;
+  min-height:640px;
+  background-color:#1a1410;
+  /* Placeholder — trocar por /assets/hero-fabrica.jpg quando cliente enviar foto real da fábrica */
+  background-image:
+    linear-gradient(100deg,var(--hero-overlay-1) 0%,var(--hero-overlay-2) 68%,rgba(20,15,10,0.55) 100%),
+    url('assets/hero-fabrica.jpg');
+  background-size:cover;
+  background-position:center right;
+  color:#fff;
+  overflow:hidden;
+}
+.hero::after{
+  /* Sub-gradient lateral pra segurar contraste do texto vertical direito */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(270deg,rgba(20,15,10,0.55) 0%,transparent 22%);
+  pointer-events:none;
+}
+.hero__inner{
+  position:relative;z-index:2;
+  max-width:1360px;margin:0 auto;
+  padding:72px 32px 40px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:32px;
+  min-height:640px;
+}
+.hero__main{max-width:640px;display:flex;flex-direction:column;justify-content:center}
+
+.eyebrow{
+  font-size:12.5px;font-weight:600;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--brand-light);
+  margin-bottom:26px;
+}
+.h1{
+  font-size:clamp(38px,4.6vw,60px);
+  font-weight:800;
+  line-height:1.05;letter-spacing:-0.015em;
+  color:#fff;text-wrap:balance;
+  margin-bottom:24px;
+}
+.sub{
+  font-size:17px;line-height:1.55;font-weight:400;
+  color:rgba(255,255,255,0.86);
+  max-width:520px;
+  margin-bottom:34px;
+}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:44px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 26px;border-radius:5px;
+  font-weight:600;font-size:15px;
+  transition:transform .12s,background .2s,border-color .2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn--primary{background:var(--brand);color:#fff}
+.btn--primary:hover{background:var(--brand-dark)}
+.btn--primary svg{transition:transform .2s}
+.btn--primary:hover svg{transform:translateX(3px)}
+.btn--ghost{
+  background:rgba(0,0,0,0.35);color:#fff;
+  border:1px solid rgba(255,255,255,0.22);
+  backdrop-filter:blur(6px);
+}
+.btn--ghost:hover{border-color:rgba(255,255,255,0.5)}
+.btn__wa{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--wa);display:inline-flex;
+  align-items:center;justify-content:center;flex-shrink:0;
+}
+
+/* Badges de prova rápida na base da hero */
+.proofs{
+  display:flex;flex-wrap:wrap;gap:38px;
+  padding-top:26px;
+  border-top:1px solid rgba(255,255,255,0.12);
+}
+.proof{display:flex;align-items:center;gap:10px}
+.proof__ic{
+  width:34px;height:34px;flex-shrink:0;
+  color:var(--brand-light);
+}
+.proof__ic svg{width:100%;height:100%;stroke-width:1.4}
+.proof__tx{font-size:13.5px;line-height:1.35;color:rgba(255,255,255,0.9);font-weight:500}
+
+/* Texto vertical direita "MAIS QUE EMBALAGENS..." */
+.hero__aside{
+  align-self:center;
+  writing-mode:horizontal-tb;
+  max-width:180px;
+  padding-left:28px;
+  border-left:1px solid rgba(212,184,150,0.32);
+}
+.aside-tx{
+  font-size:13px;font-weight:600;
+  letter-spacing:0.16em;text-transform:uppercase;
+  line-height:1.65;
+  color:var(--brand-light);
+}
+
+/* ============================================
+   RESPONSIVO
+============================================ */
+@media (max-width:960px){
+  .hdr__inner{padding:12px 20px;gap:16px}
+  .nav{display:none} /* Simplifica pra mobile — menu vira hamburger num passo futuro */
+  .brand__tag{display:none}
+  .hero{min-height:auto}
+  .hero__inner{grid-template-columns:1fr;padding:56px 20px 40px;min-height:auto}
+  .hero__aside{display:none} /* Esconde texto vertical no mobile */
+  .cta-row{margin-bottom:36px}
+  .proofs{gap:22px}
+  .proof__tx{font-size:12.5px}
+}
+@media (max-width:520px){
+  .h1{font-size:34px}
+  .sub{font-size:15.5px}
+  .btn{padding:13px 20px;font-size:14px}
+  .proofs{gap:18px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr__inner">
+    <a href="/" class="brand" aria-label="Art Pel Embalagens">
+      <img src="assets/logo.png" alt="Art Pel" class="brand__logo">
+      <span class="brand__wm">
+        <span class="brand__name">ART PEL</span>
+        <span class="brand__tag">EMBALAGENS</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Navegacao principal">
+      <a href="#solucoes">Soluções</a>
+      <a href="#segmentos">Segmentos</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#fabrica">Nossa fábrica</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
+
+    <a href="#formulario" class="cta-hdr">Solicitar orçamento</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__inner">
+
+    <div class="hero__main">
+      <span class="eyebrow">Embalagens de papelão para indústrias</span>
+
+      <h1 class="h1">Sua produção não pode parar por falta de embalagem.</h1>
+
+      <p class="sub">
+        Caixas de papelão sob medida, produção própria e atendimento para empresas
+        que compram em volume e precisam de fornecimento recorrente.
+      </p>
+
+      <div class="cta-row">
+        <a href="#formulario" class="btn btn--primary">
+          Ver se a Art Pel atende minha empresa
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#contato" class="btn btn--ghost">
+          <span class="btn__wa">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+          </span>
+          Falar com um especialista
+        </a>
+      </div>
+
+      <div class="proofs">
+        <div class="proof">
+          <div class="proof__ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+          </div>
+          <div class="proof__tx">26 anos<br>de mercado</div>
+        </div>
+        <div class="proof">
+          <div class="proof__ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l6-4v4l6-4v4l6-4v15z"/><path d="M9 21v-4M15 21v-4"/></svg>
+          </div>
+          <div class="proof__tx">Produção<br>própria</div>
+        </div>
+        <div class="proof">
+          <div class="proof__ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+          </div>
+          <div class="proof__tx">Caixas<br>sob medida</div>
+        </div>
+        <div class="proof">
+          <div class="proof__ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C7 6 5 10 5 14a7 7 0 0 0 14 0c0-4-2-8-7-12z"/><circle cx="12" cy="15" r="2.5"/></svg>
+          </div>
+          <div class="proof__tx">Impressão flexográfica<br>(até 2 cores)</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero__aside">
+      <p class="aside-tx">Mais que embalagens, continuidade para a sua operação.</p>
+    </aside>
+
+  </div>
+</section>
+
+<!-- Próximos blocos entram aqui (autoridade, problema, solução, segmentos, como funciona, fábrica, prova social, faq, form, cta final, rodapé) -->
+
+</body>
+</html>
