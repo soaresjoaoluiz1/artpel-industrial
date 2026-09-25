@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -23,6 +23,11 @@
   --hero-overlay-1:rgba(20,15,10,0.82);
   --hero-overlay-2:rgba(30,22,15,0.35);
   --wa:#25D366;              /* Verde WhatsApp */
+  --cream:#F4EFE5;           /* Fundo bege claro (bloco autoridade) */
+  --cream-line:#E4DBC8;      /* Divisor sobre creme */
+  --night:#141924;           /* Preto azulado escuro (bloco problema) */
+  --night-2:#1D2432;         /* Variante sutil pro gradient */
+  --alert:#C45A2C;           /* Laranja escuro (ícones X de problema) */
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -173,8 +178,124 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 
 /* ============================================
+   BLOCO 02 — AUTORIDADE (fundo creme)
+============================================ */
+.authority{
+  background:var(--cream);
+  padding:88px 32px;
+  color:var(--ink);
+}
+.authority__inner{
+  max-width:1360px;margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);
+  gap:64px;align-items:center;
+}
+.section-eyebrow{
+  font-size:12.5px;font-weight:600;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--brand);
+  margin-bottom:22px;display:block;
+}
+.section-h2{
+  font-size:clamp(30px,3vw,42px);
+  font-weight:700;line-height:1.08;letter-spacing:-0.015em;
+  color:var(--ink);text-wrap:balance;
+  margin-bottom:22px;
+}
+.section-lead{
+  font-size:15.5px;line-height:1.6;font-weight:400;
+  color:var(--ink-soft);
+  max-width:460px;
+}
+.pillars{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:22px;align-items:start;
+}
+.pillar{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.pillar__ic{
+  width:52px;height:52px;color:var(--brand);
+  display:flex;align-items:center;justify-content:center;
+}
+.pillar__ic svg{width:100%;height:100%;stroke-width:1.35}
+.pillar__tx{
+  font-size:14.5px;font-weight:600;line-height:1.35;
+  color:var(--ink);
+}
+
+/* ============================================
+   BLOCO 03 — PROBLEMA (fundo escuro)
+============================================ */
+.problem{
+  background:var(--night);
+  background-image:linear-gradient(135deg,var(--night) 0%,var(--night-2) 100%);
+  padding:88px 32px;color:#fff;
+  position:relative;overflow:hidden;
+}
+.problem__inner{
+  max-width:1360px;margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,0.85fr);
+  gap:56px;align-items:center;
+}
+.problem__intro{max-width:460px}
+.problem .section-eyebrow{color:var(--brand-light)}
+.problem__h2{
+  font-size:clamp(30px,3vw,44px);
+  font-weight:700;line-height:1.08;letter-spacing:-0.015em;
+  color:#fff;text-wrap:balance;
+  margin-bottom:22px;
+}
+.problem__lead{
+  font-size:15.5px;line-height:1.6;font-weight:400;
+  color:rgba(255,255,255,0.75);
+  margin-bottom:34px;
+}
+.problem__list{list-style:none;display:flex;flex-direction:column;gap:18px}
+.problem__list li{
+  display:flex;align-items:flex-start;gap:14px;
+  font-size:15.5px;line-height:1.5;font-weight:500;
+  color:rgba(255,255,255,0.92);
+}
+.problem__x{
+  width:24px;height:24px;flex-shrink:0;
+  border-radius:50%;background:var(--alert);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-top:1px;
+}
+.problem__x svg{width:12px;height:12px;stroke:#fff;stroke-width:2.5}
+
+/* Coluna direita — foto de pilha de caixas + overlay texto serif */
+.problem__aside{
+  position:relative;height:100%;min-height:340px;
+  border-radius:8px;overflow:hidden;
+  /* Placeholder — trocar por /assets/pilha-caixas.jpg quando cliente enviar foto real */
+  background-color:#3A2E20;
+  background-image:
+    linear-gradient(90deg,rgba(20,15,10,0.6) 0%,rgba(20,15,10,0.15) 45%,transparent 100%),
+    url('assets/pilha-caixas.jpg');
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:flex-start;
+  padding:44px 32px;
+}
+.problem__quote{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-weight:500;
+  font-size:clamp(28px,2.6vw,36px);
+  line-height:1.15;color:#fff;
+  text-shadow:0 2px 20px rgba(0,0,0,0.55);
+  max-width:220px;
+}
+
+/* ============================================
    RESPONSIVO
 ============================================ */
+@media (max-width:1080px){
+  .authority__inner{grid-template-columns:1fr;gap:40px}
+  .problem__inner{grid-template-columns:1fr 1fr;gap:44px}
+  .problem__aside{grid-column:span 2;min-height:280px}
+}
 @media (max-width:960px){
   .hdr__inner{padding:12px 20px;gap:16px}
   .nav{display:none} /* Simplifica pra mobile — menu vira hamburger num passo futuro */
@@ -185,12 +306,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .cta-row{margin-bottom:36px}
   .proofs{gap:22px}
   .proof__tx{font-size:12.5px}
+  .authority,.problem{padding:64px 20px}
+  .pillars{grid-template-columns:repeat(3,1fr);gap:28px 16px}
+  .problem__inner{grid-template-columns:1fr;gap:36px}
+  .problem__aside{grid-column:span 1;min-height:220px;padding:32px 24px}
 }
 @media (max-width:520px){
   .h1{font-size:34px}
   .sub{font-size:15.5px}
   .btn{padding:13px 20px;font-size:14px}
   .proofs{gap:18px 22px}
+  .pillars{grid-template-columns:repeat(2,1fr)}
+  .pillar__ic{width:44px;height:44px}
 }
 </style>
 </head>
@@ -282,7 +409,104 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 </section>
 
-<!-- Próximos blocos entram aqui (autoridade, problema, solução, segmentos, como funciona, fábrica, prova social, faq, form, cta final, rodapé) -->
+<!-- BLOCO 02 — AUTORIDADE -->
+<section class="authority" id="autoridade">
+  <div class="authority__inner">
+
+    <div class="authority__intro">
+      <span class="section-eyebrow">Um parceiro para o seu crescimento</span>
+      <h2 class="section-h2">Embalagens que fazem parte da operação de indústrias em todo o Sul.</h2>
+      <p class="section-lead">
+        Há mais de duas décadas, a Art Pel desenvolve soluções em embalagens de papelão
+        para empresas de diferentes segmentos, com foco em qualidade, prazo e parceria
+        de longo prazo.
+      </p>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar__ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+        </div>
+        <div class="pillar__tx">26 anos<br>de experiência</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l6-4v4l6-4v4l6-4v15z"/><path d="M9 21v-4M15 21v-4"/></svg>
+        </div>
+        <div class="pillar__tx">Produção<br>própria</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="pillar__tx">Atendimento<br>B2B</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15l7-7 4 4 8-8v6"/><path d="M20 15v6h-6"/><rect x="2" y="15" width="20" height="6" rx="1"/><path d="M6 18h.01M10 18h.01M14 18h.01M18 18h.01"/></svg>
+        </div>
+        <div class="pillar__tx">Sob<br>medida</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="14" height="10" rx="1"/><path d="M15 9h4l3 4v3h-7"/><circle cx="6.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div class="pillar__tx">Produção<br>em volume</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOCO 03 — PROBLEMA -->
+<section class="problem" id="problema">
+  <div class="problem__inner">
+
+    <div class="problem__intro">
+      <span class="section-eyebrow">Problemas que sua empresa pode evitar</span>
+      <h2 class="problem__h2">A embalagem não pode ser o ponto que atrasa sua produção.</h2>
+      <p class="problem__lead">
+        Quando a embalagem não acompanha o ritmo da sua operação, toda a cadeia sente
+        o impacto. Evite desperdícios, atrasos e custos desnecessários.
+      </p>
+      <a href="#solucao" class="btn btn--primary">
+        Conheça a solução da Art Pel
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <ul class="problem__list">
+      <li>
+        <span class="problem__x"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+        Caixas fora da medida geram desperdício e danos.
+      </li>
+      <li>
+        <span class="problem__x"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+        Fornecedor sem capacidade não acompanha o volume.
+      </li>
+      <li>
+        <span class="problem__x"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+        Prazo inconsistente atrasa a expedição.
+      </li>
+      <li>
+        <span class="problem__x"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+        Material inadequado compromete o transporte.
+      </li>
+      <li>
+        <span class="problem__x"><svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span>
+        Cada novo tamanho vira uma negociação diferente.
+      </li>
+    </ul>
+
+    <aside class="problem__aside">
+      <p class="problem__quote">Sua operação não pode parar.</p>
+    </aside>
+
+  </div>
+</section>
+
+<!-- Próximos blocos entram aqui (solução, segmentos, como funciona, fábrica, prova social, faq, form, cta final, rodapé) -->
 
 </body>
 </html>
