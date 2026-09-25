@@ -289,6 +289,99 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 }
 
 /* ============================================
+   BLOCO 04 — SOLUÇÃO (fundo creme, 4 cards com foto)
+============================================ */
+.solution{
+  background:var(--cream);
+  padding:88px 32px 96px;
+  color:var(--ink);
+}
+.solution__inner{max-width:1360px;margin:0 auto}
+.solution__head{max-width:640px;margin-bottom:56px}
+.solution__lead{
+  font-size:15.5px;line-height:1.6;color:var(--ink-soft);
+  max-width:560px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+.card{
+  background:#fff;border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 1px 2px rgba(20,15,10,0.04),0 6px 18px rgba(20,15,10,0.05);
+  display:flex;flex-direction:column;
+  transition:transform .2s,box-shadow .2s;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 1px 2px rgba(20,15,10,0.04),0 12px 28px rgba(20,15,10,0.09)}
+.card__img{
+  width:100%;height:180px;
+  background:#8B6E4C;
+  background-size:cover;background-position:center;
+}
+.card__body{padding:22px 22px 26px;flex:1;display:flex;flex-direction:column;gap:8px}
+.card__title{
+  font-size:17px;font-weight:700;line-height:1.25;
+  color:var(--ink);letter-spacing:-0.01em;
+}
+.card__desc{
+  font-size:14.5px;line-height:1.5;font-weight:400;
+  color:var(--ink-soft);
+}
+
+/* ============================================
+   BLOCO 05 — SEGMENTOS (creme esquerda + foto direita)
+============================================ */
+.segments{
+  background:var(--cream);
+  color:var(--ink);
+  overflow:hidden;
+}
+.segments__inner{
+  max-width:1520px;margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,0.85fr);
+  gap:0;align-items:stretch;
+  min-height:420px;
+}
+.segments__left{padding:80px 32px 80px 32px;display:flex;flex-direction:column;justify-content:center}
+.segments__head{max-width:520px;margin-bottom:44px}
+.icons-row{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:18px;align-items:start;
+}
+.seg-ic{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.seg-ic__box{
+  width:48px;height:48px;color:var(--brand);
+}
+.seg-ic__box svg{width:100%;height:100%;stroke-width:1.4}
+.seg-ic__tx{
+  font-size:13px;font-weight:600;line-height:1.3;
+  color:var(--ink);
+}
+
+.segments__right{
+  position:relative;min-height:100%;
+  /* Placeholder — trocar por /assets/pilha-caixas-artpel.jpg */
+  background-color:#1F2A38;
+  background-image:
+    linear-gradient(90deg,transparent 0%,rgba(20,26,38,0.35) 55%,rgba(20,26,38,0.75) 100%),
+    url('assets/pilha-caixas-artpel.jpg');
+  background-size:cover;background-position:center left;
+  display:flex;align-items:center;justify-content:flex-end;
+  padding:60px 44px 60px 20px;
+}
+.segments__vlabel{
+  font-size:15px;font-weight:600;
+  letter-spacing:0.22em;text-transform:uppercase;
+  line-height:1.6;color:#fff;
+  max-width:180px;text-align:right;
+  text-shadow:0 2px 12px rgba(0,0,0,0.4);
+}
+
+/* ============================================
    RESPONSIVO
 ============================================ */
 @media (max-width:1080px){
@@ -306,10 +399,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .cta-row{margin-bottom:36px}
   .proofs{gap:22px}
   .proof__tx{font-size:12.5px}
-  .authority,.problem{padding:64px 20px}
+  .authority,.problem,.solution{padding:64px 20px}
   .pillars{grid-template-columns:repeat(3,1fr);gap:28px 16px}
   .problem__inner{grid-template-columns:1fr;gap:36px}
   .problem__aside{grid-column:span 1;min-height:220px;padding:32px 24px}
+  .cards{grid-template-columns:repeat(2,1fr);gap:18px}
+  .segments__inner{grid-template-columns:1fr;min-height:auto}
+  .segments__left{padding:64px 20px 48px}
+  .segments__right{min-height:280px;padding:44px 24px}
+  .segments__vlabel{max-width:none;text-align:left}
+  .icons-row{grid-template-columns:repeat(4,1fr);gap:24px 12px}
 }
 @media (max-width:520px){
   .h1{font-size:34px}
@@ -318,6 +417,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .proofs{gap:18px 22px}
   .pillars{grid-template-columns:repeat(2,1fr)}
   .pillar__ic{width:44px;height:44px}
+  .cards{grid-template-columns:1fr}
+  .card__img{height:160px}
+  .icons-row{grid-template-columns:repeat(3,1fr)}
+  .seg-ic__tx{font-size:12px}
 }
 </style>
 </head>
@@ -506,7 +609,117 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 </section>
 
-<!-- Próximos blocos entram aqui (solução, segmentos, como funciona, fábrica, prova social, faq, form, cta final, rodapé) -->
+<!-- BLOCO 04 — SOLUÇÃO -->
+<section class="solution" id="solucoes">
+  <div class="solution__inner">
+
+    <div class="solution__head">
+      <span class="section-eyebrow">Soluções para a sua indústria</span>
+      <h2 class="section-h2">Produzimos a embalagem para a realidade da sua empresa.</h2>
+      <p class="solution__lead">
+        Entendemos o seu produto, a aplicação da embalagem e o volume necessário
+        para desenvolver a melhor solução em papelão.
+      </p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="card__img" style="background-image:url('assets/sol-caixas-sob-medida.jpg')"></div>
+        <div class="card__body">
+          <h3 class="card__title">Caixas sob medida</h3>
+          <p class="card__desc">Produção conforme as dimensões do seu produto.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__img" style="background-image:url('assets/sol-especificacoes.jpg')"></div>
+        <div class="card__body">
+          <h3 class="card__title">Diferentes especificações de papelão</h3>
+          <p class="card__desc">Estrutura ideal para cada aplicação.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__img" style="background-image:url('assets/sol-flexografica.jpg')"></div>
+        <div class="card__body">
+          <h3 class="card__title">Impressão flexográfica</h3>
+          <p class="card__desc">Personalização em até duas cores.</p>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card__img" style="background-image:url('assets/sol-producao-volume.jpg')"></div>
+        <div class="card__body">
+          <h3 class="card__title">Produção em volume</h3>
+          <p class="card__desc">Atendimento para empresas com consumo recorrente.</p>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOCO 05 — SEGMENTOS -->
+<section class="segments" id="segmentos">
+  <div class="segments__inner">
+
+    <div class="segments__left">
+      <div class="segments__head">
+        <span class="section-eyebrow">Segmentos atendidos</span>
+        <h2 class="section-h2">Embalagens para diferentes indústrias e aplicações.</h2>
+      </div>
+
+      <div class="icons-row">
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v20M6 2c0 2 2 3 2 5v3c0 1-1 2-2 2M6 2c0 2-2 3-2 5v3c0 1 1 2 2 2M18 2v9c0 1-1 2-2 2h-1v9"/></svg>
+          </div>
+          <div class="seg-ic__tx">Alimentícia</div>
+        </div>
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6.5L4.5 19a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V3"/></svg>
+          </div>
+          <div class="seg-ic__tx">Química e<br>Limpeza</div>
+        </div>
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          </div>
+          <div class="seg-ic__tx">Autopeças</div>
+        </div>
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><path d="M2 11a2 2 0 0 1 2 2v3h16v-3a2 2 0 0 1 2-2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/><path d="M6 18v2M18 18v2"/></svg>
+          </div>
+          <div class="seg-ic__tx">Moveleira</div>
+        </div>
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l4 2v4l-4 2-4-2V4z"/><path d="M4 12l4 2v4l-4 2-4-2v-4z" transform="translate(4,0)"/><path d="M16 12l4 2v4l-4 2-4-2v-4z"/></svg>
+          </div>
+          <div class="seg-ic__tx">Distribuidores</div>
+        </div>
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          </div>
+          <div class="seg-ic__tx">E-commerce</div>
+        </div>
+        <div class="seg-ic">
+          <div class="seg-ic__box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01M10 22v-4h4v4"/></svg>
+          </div>
+          <div class="seg-ic__tx">Outros<br>segmentos</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="segments__right">
+      <p class="segments__vlabel">Embalagens sob medida para o seu segmento</p>
+    </aside>
+
+  </div>
+</section>
+
+<!-- Próximos blocos entram aqui (como funciona, fábrica, prova social, faq, form, cta final, rodapé) -->
 
 </body>
 </html>
