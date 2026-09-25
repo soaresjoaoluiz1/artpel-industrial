@@ -42,6 +42,26 @@
 <!-- Preload da foto hero (LCP) -->
 <link rel="preload" as="image" href="assets/hero-fabrica.webp">
 
+<!-- ============ TRACKING (colar IDs quando cliente enviar) ============ -->
+<!-- Meta Pixel (Facebook/Instagram Ads) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+// TODO: substituir PIXEL_ID pelo ID real quando cliente enviar
+var META_PIXEL_ID = 'PIXEL_ID';
+if(META_PIXEL_ID !== 'PIXEL_ID'){ fbq('init', META_PIXEL_ID); fbq('track', 'PageView'); }
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1" alt=""/></noscript>
+
+<!-- Google Analytics 4 -->
+<!-- TODO: substituir G-XXXXXXXXXX pelo ID real (GA4 Measurement ID) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+var GA4_ID = 'G-XXXXXXXXXX';
+if(GA4_ID !== 'G-XXXXXXXXXX'){ gtag('js', new Date()); gtag('config', GA4_ID); }
+</script>
+
 <!-- JSON-LD: Organization + LocalBusiness -->
 <script type="application/ld+json">
 {
@@ -1550,7 +1570,23 @@ section[id]{scroll-margin-top:88px}
     ok=showErr('fPerso','mPerso',!document.getElementById('fPerso').value)&&ok;
     if(!ok)return;
 
-    // TODO: substituir por URL real do Apps Script quando cliente aprovar
+    // Captura tracking (UTMs + fbc/fbp + referrer + device)
+    const url=new URL(window.location.href);
+    const qp=k=>url.searchParams.get(k)||'';
+    const cookie=n=>{const m=document.cookie.match(new RegExp('(^|;\\s*)'+n+'=([^;]+)'));return m?decodeURIComponent(m[2]):''};
+    const device=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?'mobile':'desktop';
+    // Event ID pra dedup Pixel Lead entre index e obrigado
+    const eventID='lead.'+Date.now()+'.'+Math.random().toString(36).slice(2,8);
+
+    const valorMedio=document.getElementById('fValor').value;
+    // Qualificacao: se compra 'Ate R$ 1.000' OU perfil eh loja/atacadista, NAO envia pro CRM
+    // (redireciona pra pagina obrigado-nao — leva pra LP2 quando disponivel)
+    const isLowValue=/at[ée]\s*r\$\s*1\.000/i.test(valorMedio);
+    const segmento=document.getElementById('fSegmento').value;
+    const isLojista=/loja|atacadista/i.test(segmento);
+    const qualificado=!isLowValue && !isLojista;
+
+    // TODO: substituir por URL real do Apps Script quando cliente publicar
     const APPS_SCRIPT_URL='';
     const payload={
       timestamp:new Date().toISOString(),
@@ -1561,18 +1597,48 @@ section[id]{scroll-margin-top:88px}
       whatsapp:document.getElementById('fWhats').value,
       email:document.getElementById('fEmail').value.trim(),
       cidade:document.getElementById('fCidade').value.trim(),
-      segmento:document.getElementById('fSegmento').value,
-      valor_medio:document.getElementById('fValor').value,
+      segmento,
+      valor_medio:valorMedio,
       frequencia:document.getElementById('fFreq').value,
       personalizacao:document.getElementById('fPerso').value,
+      // Tracking
+      utm_source:qp('utm_source'),
+      utm_medium:qp('utm_medium'),
+      utm_campaign:qp('utm_campaign'),
+      utm_content:qp('utm_content'),
+      utm_term:qp('utm_term'),
+      gclid:qp('gclid'),
+      fbclid:qp('fbclid'),
+      fbc:cookie('_fbc'),
+      fbp:cookie('_fbp'),
+      referrer:document.referrer||'direto',
+      landing_page:window.location.href,
+      user_agent:navigator.userAgent,
+      device,
+      fb_event_id:eventID,
+      qualificado,
     };
+
+    // Guarda dados pro obrigado.html usar (Advanced Matching + WhatsApp CTA)
+    try{sessionStorage.setItem('_artpel_lead',JSON.stringify({
+      nome:payload.nome,whatsapp:payload.whatsapp,empresa:payload.empresa,
+      email:payload.email,cidade:payload.cidade,eventID,qualificado
+    }));}catch(e){}
+
+    // Meta Pixel: dispara evento Lead so pra qualificados (evita treinar
+    // otimizacao com leads desqualificados)
+    if(qualificado && window.fbq){
+      try{fbq('track','Lead',{content_name:'LP Industrial Art Pel',content_category:'Embalagens Industriais',currency:'BRL',value:100.00},{eventID});}catch(e){}
+    }else if(!qualificado && window.fbq){
+      try{fbq('trackCustom','LeadDesqualificado',{content_name:'LP Industrial Art Pel',motivo:isLowValue?'valor_baixo':'lojista'});}catch(e){}
+    }
+
     const btn=form.querySelector('button[type=submit]');
-    btn.disabled=true;btn.style.opacity=.6;
-    const orig=btn.innerHTML;btn.innerHTML='Enviando...';
+    btn.disabled=true;btn.style.opacity=.6;btn.innerHTML='Enviando...';
     if(APPS_SCRIPT_URL){
       try{await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});}catch(err){console.error('[form]',err);}
     }else{console.log('[form] payload (sem endpoint configurado):',payload);}
-    window.location.href='/obrigado.html';
+    window.location.href=qualificado?'obrigado.html':'obrigado-nao.html';
   });
 
 })();
