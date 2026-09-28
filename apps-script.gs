@@ -34,7 +34,7 @@ function doPost(e) {
     if (sheet.getLastRow() === 0) sheet.appendRow(getHeader());
 
     // Regra de qualificacao (definida pelo cliente):
-    //   NAO envia pro CRM se: valor medio "Ate R$ 1.000" OU perfil eh loja/atacadista
+    //   NAO envia pro CRM se: quantidade "Ate 500 caixas" OU perfil eh loja/atacadista
     //   (lojistas viram tag LP-LOJAS mas vao pra tratamento separado — LP2)
     const valorMedio = String(body.valor_medio || '');
     const segmento = String(body.segmento || '');
@@ -50,7 +50,7 @@ function doPost(e) {
       statusCRM = crmResult.ok ? 'Enviado ✓ (' + crmResult.status + ')' : 'Erro (' + crmResult.status + ')';
       crmResponse = String(crmResult.response || '').substring(0, 500);
     } else if (isValorBaixo) {
-      statusCRM = 'Desqualificado — valor < R$ 1k';
+      statusCRM = 'Desqualificado — <500 caixas';
     } else if (isLojistaSubmit) {
       statusCRM = 'Desqualificado — lojista (redirect LP2)';
     }
