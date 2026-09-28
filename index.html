@@ -666,22 +666,16 @@ section[id]{scroll-margin-top:88px}
 }
 
 /* ============================================
-   BLOCO 09+10 — FAQ + FORMULÁRIO (split creme + preto)
+   BLOCO 09 — FAQ full-width (form saiu, virou modal)
 ============================================ */
-.contact-wrap{
-  max-width:1360px;margin:0 auto;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
-  gap:0;
-  overflow:hidden;
-  padding:0 32px 88px;
-}
-/* FAQ esquerda (creme) — padding-left igual ao form (60px) pra alinhar
-   verticalmente com o "Solicite uma analise" ao lado */
-.faq{
+.faq-section{
   background:var(--cream);color:var(--ink);
-  padding:60px 44px 60px 60px;
+  padding:88px 32px;
 }
+.faq-section__inner{
+  max-width:900px;margin:0 auto;
+}
+.faq{color:var(--ink)}
 .faq__head{max-width:420px;margin-bottom:36px}
 .faq__list{list-style:none;display:flex;flex-direction:column;gap:0}
 .faq__item{border-bottom:1px solid var(--cream-line)}
@@ -705,70 +699,143 @@ section[id]{scroll-margin-top:88px}
   max-width:520px;
 }
 
-/* Formulário direita (preto) */
-.form-side{
-  background:var(--night);
-  background-image:linear-gradient(135deg,var(--night) 0%,var(--night-2) 100%);
-  padding:60px;color:#fff;
-  border-radius:8px;
+/* ============================================
+   MODAL — Popup de qualificacao multi-step
+============================================ */
+.modal{
+  position:fixed;inset:0;z-index:100;
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
 }
-.form-side__head{margin-bottom:36px}
-.form-side__h2{
-  font-size:clamp(24px,2.4vw,32px);
-  font-weight:700;line-height:1.15;letter-spacing:-0.01em;
-  color:#fff;margin-bottom:14px;text-wrap:balance;
+.modal[data-open="true"]{display:flex}
+.modal__overlay{
+  position:absolute;inset:0;
+  background:rgba(20,15,10,0.75);
+  backdrop-filter:blur(6px);
+  animation:modalFade .25s ease;
 }
-.form-side__lead{
-  font-size:14.5px;line-height:1.55;
-  color:rgba(255,255,255,0.72);
-  max-width:440px;
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+@keyframes modalRise{from{opacity:0;transform:translateY(20px) scale(0.98)}to{opacity:1;transform:none}}
+.modal__card{
+  position:relative;
+  background:#fff;color:var(--ink);
+  max-width:580px;width:100%;
+  max-height:calc(100vh - 40px);
+  overflow-y:auto;
+  border-radius:16px;
+  padding:44px 48px 36px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.35);
+  animation:modalRise .3s cubic-bezier(.2,.7,.3,1);
 }
-.form-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+.modal__close{
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--cream);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-soft);
+  font-size:16px;
+  transition:background .15s,color .15s;
+}
+.modal__close:hover{background:var(--brand);color:#fff}
+.modal__eyebrow{
+  font-size:13px;font-weight:600;
+  color:var(--brand);
+  margin-bottom:14px;
+}
+.modal__title{
+  font-size:26px;line-height:1.12;font-weight:800;
+  letter-spacing:-0.015em;color:var(--ink);
+  margin-bottom:12px;text-wrap:balance;
+}
+.modal__title em{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-weight:600;
+  color:var(--brand);
+}
+.modal__sub{
+  font-size:14.5px;line-height:1.55;color:var(--ink-soft);
   margin-bottom:22px;
 }
-.field{position:relative;display:flex;flex-direction:column}
+.modal__progress{
+  height:3px;background:var(--cream-line);border-radius:3px;overflow:hidden;
+  margin-bottom:14px;
+}
+.modal__progress-bar{
+  height:100%;background:var(--brand);border-radius:3px;
+  transition:width .3s cubic-bezier(.2,.7,.3,1);
+  width:50%;
+}
+.modal__steps{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;font-weight:700;letter-spacing:0.12em;
+  color:var(--ink-soft);text-transform:uppercase;
+  margin-bottom:22px;
+}
+.mstep{display:flex;align-items:center;gap:6px;transition:color .2s}
+.mstep.is-active{color:var(--brand)}
+.mstep.is-done{color:#2A6E4A}
+.mstep__check{
+  display:none;width:16px;height:16px;
+}
+.mstep.is-done .mstep__check{display:inline-block}
+.mstep.is-done .mstep__num{display:none}
+.modal__info{
+  background:#FFF9E8;border-left:3px solid #E5B84B;
+  padding:12px 16px;border-radius:6px;
+  font-size:13px;line-height:1.45;color:var(--ink);
+  margin-bottom:22px;
+}
+.modal__info strong{color:var(--brand-dark);font-weight:700}
+.modal__pane{display:flex;flex-direction:column;gap:14px}
+.modal__pane[hidden]{display:none}
+.field{position:relative;display:flex;flex-direction:column;gap:6px}
+.field label{
+  font-size:10.5px;font-weight:700;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
 .field input,.field select{
   width:100%;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.14);
-  color:#fff;
-  padding:14px 16px;border-radius:5px;
+  background:#FBF9F5;
+  border:1.5px solid var(--cream-line);
+  color:var(--ink);
+  padding:13px 16px;border-radius:8px;
   font-family:inherit;font-size:14.5px;
-  transition:border-color .15s,background .15s;
+  transition:border-color .15s,background .15s,box-shadow .15s;
   appearance:none;-webkit-appearance:none;
 }
 .field select{
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4B896' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239A7B54' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat:no-repeat;background-position:right 14px center;background-size:16px;
   padding-right:38px;cursor:pointer;
 }
-.field option{background:var(--night);color:#fff}
-.field input::placeholder{color:rgba(255,255,255,0.5)}
+.field input::placeholder{color:#9E8C74}
 .field input:focus,.field select:focus{
-  outline:none;border-color:var(--brand-light);
-  background:rgba(255,255,255,0.06);
+  outline:none;border-color:var(--brand);background:#fff;
+  box-shadow:0 0 0 4px rgba(154,123,84,0.12);
 }
-.field input.err,.field select.err{border-color:var(--alert);background:rgba(196,90,44,0.08)}
+.field input.err,.field select.err{border-color:var(--alert);background:#FDF3EE}
 .field__msg{
-  display:none;
-  font-size:12.5px;color:var(--alert);
-  margin-top:6px;
+  display:none;font-size:12px;color:var(--alert);font-weight:500;
 }
 .field__msg.show{display:block}
-
-.form-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
-.form-side .btn--ghost{
-  background:transparent;
-  border-color:rgba(255,255,255,0.35);
+.modal__actions{
+  display:flex;gap:12px;align-items:center;
+  margin-top:24px;
 }
-.form-side .btn--ghost:hover{border-color:#fff;background:rgba(255,255,255,0.04)}
-.form-hint{
-  display:flex;align-items:center;gap:8px;
-  font-size:12.5px;color:rgba(255,255,255,0.55);
+.modal__actions .btn{flex:1;justify-content:center;padding:15px 22px}
+.modal__actions .btn--ghost{
+  flex:0 0 auto;background:transparent;color:var(--ink-soft);
+  border:1px solid var(--cream-line);
+}
+.modal__actions .btn--ghost:hover{border-color:var(--brand);color:var(--brand)}
+.modal__foot{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:11.5px;color:var(--ink-soft);text-align:center;
   margin-top:18px;
 }
-.form-hint svg{width:14px;height:14px;color:var(--brand-light);flex-shrink:0}
+.modal__foot svg{width:12px;height:12px;color:var(--brand)}
+body.modal-open{overflow:hidden}
 
 /* ============================================
    BLOCO 11 — CTA FINAL (fundo escuro)
@@ -873,9 +940,11 @@ section[id]{scroll-margin-top:88px}
   .metrics{grid-template-columns:repeat(2,auto);gap:28px 40px}
   .social__inner{grid-template-columns:1fr;gap:32px}
   .testimonial{flex:0 0 calc((100% - 22px) / 2)}
-  .contact-wrap{grid-template-columns:1fr;padding:0 20px 56px;gap:24px}
-  .faq{padding:56px 0 0}
-  .form-side{padding:44px 24px}
+  .faq-section{padding:56px 20px}
+  .modal__card{padding:36px 24px 28px}
+  .modal__title{font-size:22px}
+  .modal__actions{flex-direction:column-reverse}
+  .modal__actions .btn{width:100%}
   .footer__top{flex-direction:column;align-items:flex-start;gap:24px}
   .footer__nav{gap:22px;flex-wrap:wrap}
   .footer__bottom{flex-direction:column;gap:8px;align-items:flex-start}
@@ -894,7 +963,6 @@ section[id]{scroll-margin-top:88px}
   .steps{grid-template-columns:1fr}
   .metric__num{font-size:28px}
   .testimonial{flex:0 0 100%}
-  .form-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -920,7 +988,7 @@ section[id]{scroll-margin-top:88px}
       <a href="#faq">Dúvidas</a>
     </nav>
 
-    <a href="#formulario" class="cta-hdr">Solicitar orçamento</a>
+    <a href="#" class="cta-hdr" data-open-modal>Solicitar orçamento</a>
   </div>
 </header>
 
@@ -939,7 +1007,7 @@ section[id]{scroll-margin-top:88px}
       </p>
 
       <div class="cta-row">
-        <a href="#formulario" class="btn btn--primary">
+        <a href="#" class="btn btn--primary" data-open-modal>
           Ver se a Art Pel atende minha empresa
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -1331,10 +1399,10 @@ section[id]{scroll-margin-top:88px}
   </div>
 </section>
 
-<!-- BLOCO 09 + 10 — FAQ (esquerda) + FORMULÁRIO (direita) -->
-<section class="contact-wrap">
+<!-- BLOCO 09 — FAQ (full-width, form agora fica em modal) -->
+<section class="faq-section">
 
-  <!-- FAQ -->
+  <div class="faq-section__inner">
   <div class="faq" id="faq">
     <div class="faq__head">
       <span class="section-eyebrow">Dúvidas frequentes</span>
@@ -1374,81 +1442,7 @@ section[id]{scroll-margin-top:88px}
     </ul>
   </div>
 
-  <!-- FORMULÁRIO -->
-  <div class="form-side" id="formulario">
-    <div class="form-side__head">
-      <h2 class="form-side__h2">Solicite uma análise para a sua operação.</h2>
-      <p class="form-side__lead">
-        Preencha as informações abaixo. Nossa equipe entrará em contato com uma proposta sob medida.
-      </p>
-    </div>
-
-    <form id="leadForm" novalidate>
-      <div class="form-grid">
-        <div class="field"><input type="text" id="fNome" name="nome" placeholder="Nome completo*" autocomplete="name" required><div class="field__msg" id="mNome">Informe nome e sobrenome.</div></div>
-        <div class="field"><input type="text" id="fEmpresa" name="empresa" placeholder="Empresa*" autocomplete="organization" required><div class="field__msg" id="mEmpresa">Informe o nome da empresa.</div></div>
-        <div class="field"><input type="text" id="fCnpj" name="cnpj" placeholder="CNPJ*" inputmode="numeric" maxlength="18" required><div class="field__msg" id="mCnpj">CNPJ inválido. Confira os 14 dígitos.</div></div>
-        <div class="field"><input type="tel" id="fWhats" name="whatsapp" placeholder="WhatsApp*" inputmode="numeric" maxlength="15" autocomplete="tel" required><div class="field__msg" id="mWhats">Use DDD + 9 na frente. Ex: (48) 99999-9999.</div></div>
-        <div class="field"><input type="email" id="fEmail" name="email" placeholder="E-mail*" autocomplete="email" required><div class="field__msg" id="mEmail">E-mail inválido. Confira o formato: nome@empresa.com.br</div></div>
-        <div class="field"><input type="text" id="fCidade" name="cidade" placeholder="Cidade / Estado*" autocomplete="address-level2" required><div class="field__msg" id="mCidade">Formato: Cidade / UF. Ex: São José / SC.</div></div>
-        <div class="field">
-          <select id="fSegmento" name="segmento" required>
-            <option value="">Segmento da sua empresa*</option>
-            <option>Indústria</option>
-            <option>Distribuidora</option>
-            <option>E-commerce com operação própria</option>
-            <option>Loja ou atacadista de embalagens</option>
-            <option>Outro</option>
-          </select>
-          <div class="field__msg" id="mSegmento">Selecione o segmento.</div>
-        </div>
-        <div class="field">
-          <select id="fValor" name="valor_medio" required>
-            <option value="">Valor médio da compra*</option>
-            <option>Até R$ 1.000</option>
-            <option>R$ 1.000 a R$ 3.000</option>
-            <option>R$ 3.000 a R$ 5.000</option>
-            <option>R$ 5.000 a R$ 10.000</option>
-            <option>Acima de R$ 10.000</option>
-          </select>
-          <div class="field__msg" id="mValor">Selecione o valor médio.</div>
-        </div>
-        <div class="field">
-          <select id="fFreq" name="frequencia" required>
-            <option value="">Frequência de compra*</option>
-            <option>Semanalmente</option>
-            <option>Quinzenalmente</option>
-            <option>Mensalmente</option>
-            <option>A cada 2-3 meses</option>
-            <option>Compra pontual</option>
-          </select>
-          <div class="field__msg" id="mFreq">Selecione a frequência.</div>
-        </div>
-        <div class="field">
-          <select id="fPerso" name="personalizacao" required>
-            <option value="">Precisa de personalização?*</option>
-            <option>Sim</option>
-            <option>Não</option>
-            <option>Algumas vezes</option>
-          </select>
-          <div class="field__msg" id="mPerso">Selecione uma opção.</div>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn btn--primary">
-          Solicitar orçamento industrial
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-
-      <p class="form-hint">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        Seus dados são utilizados apenas para análise comercial.
-      </p>
-    </form>
   </div>
-
 </section>
 
 <!-- BLOCO 12 — RODAPÉ -->
@@ -1468,7 +1462,7 @@ section[id]{scroll-margin-top:88px}
       <a href="#fabrica">Nossa fábrica</a>
       <a href="#depoimentos">Depoimentos</a>
       <a href="#faq">Dúvidas</a>
-      <a href="#formulario">Contato</a>
+      <a href="#" data-open-modal>Contato</a>
     </nav>
 
     <div class="footer__meta">
@@ -1496,6 +1490,136 @@ section[id]{scroll-margin-top:88px}
     </div>
   </div>
 </footer>
+
+<!-- MODAL DE QUALIFICACAO (2 etapas) -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal__overlay" data-close-modal></div>
+  <div class="modal__card">
+    <button class="modal__close" type="button" data-close-modal aria-label="Fechar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <p class="modal__eyebrow">— Análise · 2 minutos</p>
+    <h2 id="modalTitle" class="modal__title">Vamos analisar o perfil da sua <em>operação</em>.</h2>
+    <p class="modal__sub">Em até 24 horas úteis nosso comercial retorna com uma proposta sob medida para o seu volume. Sem compromisso.</p>
+
+    <div class="modal__progress"><div class="modal__progress-bar" id="progressBar" style="width:50%"></div></div>
+    <div class="modal__steps">
+      <span class="mstep is-active" data-mstep="1">
+        <svg class="mstep__check" viewBox="0 0 24 24" fill="none" stroke="#2A6E4A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span class="mstep__num">01 ·</span> Contato
+      </span>
+      <span class="mstep" data-mstep="2"><span class="mstep__num">02 ·</span> Operação</span>
+    </div>
+
+    <div class="modal__info">
+      <strong>Atendimento industrial:</strong> pedidos a partir de R$ 1.000 e empresas com demanda em volume.
+    </div>
+
+    <form id="leadForm" novalidate>
+      <!-- Etapa 1: CONTATO -->
+      <div class="modal__pane" data-pane="1">
+        <div class="field">
+          <label for="fNome">Nome completo</label>
+          <input type="text" id="fNome" name="nome" placeholder="Seu nome" autocomplete="name" required>
+          <div class="field__msg" id="mNome">Informe nome e sobrenome.</div>
+        </div>
+        <div class="field">
+          <label for="fEmpresa">Empresa</label>
+          <input type="text" id="fEmpresa" name="empresa" placeholder="Nome da empresa" autocomplete="organization" required>
+          <div class="field__msg" id="mEmpresa">Informe o nome da empresa.</div>
+        </div>
+        <div class="field">
+          <label for="fCnpj">CNPJ</label>
+          <input type="text" id="fCnpj" name="cnpj" placeholder="00.000.000/0000-00" inputmode="numeric" maxlength="18" required>
+          <div class="field__msg" id="mCnpj">CNPJ inválido. Confira os 14 dígitos.</div>
+        </div>
+        <div class="field">
+          <label for="fWhats">WhatsApp</label>
+          <input type="tel" id="fWhats" name="whatsapp" placeholder="(48) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel" required>
+          <div class="field__msg" id="mWhats">Use DDD + 9 na frente. Ex: (48) 99999-9999.</div>
+        </div>
+        <div class="field">
+          <label for="fEmail">E-mail</label>
+          <input type="email" id="fEmail" name="email" placeholder="nome@empresa.com.br" autocomplete="email" required>
+          <div class="field__msg" id="mEmail">E-mail inválido.</div>
+        </div>
+      </div>
+
+      <!-- Etapa 2: OPERACAO -->
+      <div class="modal__pane" data-pane="2" hidden>
+        <div class="field">
+          <label for="fCidade">Cidade / UF</label>
+          <input type="text" id="fCidade" name="cidade" placeholder="Ex: São José / SC" autocomplete="address-level2" required>
+          <div class="field__msg" id="mCidade">Formato: Cidade / UF. Ex: São José / SC.</div>
+        </div>
+        <div class="field">
+          <label for="fSegmento">Segmento da sua empresa</label>
+          <select id="fSegmento" name="segmento" required>
+            <option value="">Selecione</option>
+            <option>Indústria</option>
+            <option>Distribuidora</option>
+            <option>E-commerce com operação própria</option>
+            <option>Loja ou atacadista de embalagens</option>
+            <option>Outro</option>
+          </select>
+          <div class="field__msg" id="mSegmento">Selecione o segmento.</div>
+        </div>
+        <div class="field">
+          <label for="fValor">Valor médio de cada compra</label>
+          <select id="fValor" name="valor_medio" required>
+            <option value="">Selecione</option>
+            <option>Até R$ 1.000</option>
+            <option>R$ 1.000 a R$ 3.000</option>
+            <option>R$ 3.000 a R$ 5.000</option>
+            <option>R$ 5.000 a R$ 10.000</option>
+            <option>Acima de R$ 10.000</option>
+          </select>
+          <div class="field__msg" id="mValor">Selecione o valor médio.</div>
+        </div>
+        <div class="field">
+          <label for="fFreq">Frequência de compra</label>
+          <select id="fFreq" name="frequencia" required>
+            <option value="">Selecione</option>
+            <option>Semanalmente</option>
+            <option>Quinzenalmente</option>
+            <option>Mensalmente</option>
+            <option>A cada 2-3 meses</option>
+            <option>Compra pontual</option>
+          </select>
+          <div class="field__msg" id="mFreq">Selecione a frequência.</div>
+        </div>
+        <div class="field">
+          <label for="fPerso">Precisa de personalização?</label>
+          <select id="fPerso" name="personalizacao" required>
+            <option value="">Selecione</option>
+            <option>Sim</option>
+            <option>Não</option>
+            <option>Algumas vezes</option>
+          </select>
+          <div class="field__msg" id="mPerso">Selecione uma opção.</div>
+        </div>
+      </div>
+
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost" id="btnBack" hidden>← Voltar</button>
+        <button type="button" class="btn btn--primary" id="btnNext">
+          Continuar
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <button type="submit" class="btn btn--primary" id="btnSubmit" hidden>
+          Solicitar análise
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <p class="modal__foot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Seus dados ficam só com a Art Pel. Uso comercial apenas.
+      </p>
+    </form>
+  </div>
+</div>
 
 <script>
 /* MOTION — fade+lift on scroll via Intersection Observer.
@@ -1532,6 +1656,73 @@ section[id]{scroll-margin-top:88px}
   apply();
 })();
 
+/* MODAL — abrir/fechar + navegacao entre etapas */
+(function(){
+  const modal=document.getElementById('modal');
+  const btnNext=document.getElementById('btnNext');
+  const btnBack=document.getElementById('btnBack');
+  const btnSubmit=document.getElementById('btnSubmit');
+  const bar=document.getElementById('progressBar');
+  const panes=document.querySelectorAll('.modal__pane');
+  const steps=document.querySelectorAll('.mstep');
+  let currentStep=1;
+  const TOTAL_STEPS=2;
+
+  function openModal(){
+    modal.setAttribute('data-open','true');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+    setStep(1);
+    setTimeout(()=>{document.getElementById('fNome').focus()},250);
+  }
+  function closeModal(){
+    modal.removeAttribute('data-open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+  }
+  function setStep(n){
+    currentStep=n;
+    panes.forEach(p=>p.hidden=(String(p.dataset.pane)!==String(n)));
+    steps.forEach(s=>{
+      const num=+s.dataset.mstep;
+      s.classList.toggle('is-active',num===n);
+      s.classList.toggle('is-done',num<n);
+    });
+    bar.style.width=(n/TOTAL_STEPS*100)+'%';
+    btnBack.hidden=(n===1);
+    btnNext.hidden=(n===TOTAL_STEPS);
+    btnSubmit.hidden=(n!==TOTAL_STEPS);
+    // scroll top do card
+    modal.querySelector('.modal__card').scrollTop=0;
+  }
+
+  document.querySelectorAll('[data-open-modal]').forEach(el=>{
+    el.addEventListener('click',e=>{e.preventDefault();openModal()});
+  });
+  document.querySelectorAll('[data-close-modal]').forEach(el=>{
+    el.addEventListener('click',e=>{e.preventDefault();closeModal()});
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&modal.getAttribute('data-open')==='true') closeModal();
+  });
+
+  btnBack.addEventListener('click',()=>setStep(Math.max(1,currentStep-1)));
+  btnNext.addEventListener('click',()=>{
+    if(validateStep(currentStep)) setStep(Math.min(TOTAL_STEPS,currentStep+1));
+  });
+
+  // Exposto pro form JS abaixo saber a etapa atual
+  window.__modalStep=()=>currentStep;
+  window.__modalValidateStep=validateStep;
+
+  function validateStep(n){
+    // A validacao real ta no bloco de baixo (validPhone/CNPJ/etc)
+    // Aqui so chama o validator global exposto e retorna ok
+    if(!window.__validateStepFn) return true;
+    return window.__validateStepFn(n);
+  }
+})();
+
 /* MÁSCARAS + VALIDAÇÃO do formulário */
 (function(){
   const onlyD=v=>String(v||'').replace(/\D/g,'');
@@ -1552,23 +1743,37 @@ section[id]{scroll-margin-top:88px}
   fWhats&&fWhats.addEventListener('input',()=>fWhats.value=maskPhone(fWhats.value));
   fCnpj&&fCnpj.addEventListener('input',()=>fCnpj.value=maskCNPJ(fCnpj.value));
 
-  function showErr(id,msgId,bad){const el=document.getElementById(id),m=document.getElementById(msgId);if(bad){el.classList.add('err');m.classList.add('show');return false;}el.classList.remove('err');m.classList.remove('show');return true;}
+  function showErr(id,msgId,bad){const el=document.getElementById(id),m=document.getElementById(msgId);if(!el||!m)return !bad;if(bad){el.classList.add('err');m.classList.add('show');return false;}el.classList.remove('err');m.classList.remove('show');return true;}
+
+  // Validacao por etapa — exposta pro JS do modal chamar antes de avancar
+  window.__validateStepFn=function(n){
+    if(n===1){
+      let ok=true;
+      ok=showErr('fNome','mNome',!validNome(document.getElementById('fNome').value))&&ok;
+      ok=showErr('fEmpresa','mEmpresa',!validEmpresa(document.getElementById('fEmpresa').value))&&ok;
+      ok=showErr('fCnpj','mCnpj',!validCNPJ(document.getElementById('fCnpj').value))&&ok;
+      ok=showErr('fWhats','mWhats',!validPhone(document.getElementById('fWhats').value))&&ok;
+      ok=showErr('fEmail','mEmail',!validEmail(document.getElementById('fEmail').value.trim()))&&ok;
+      return ok;
+    }
+    if(n===2){
+      let ok=true;
+      ok=showErr('fCidade','mCidade',!validCidade(document.getElementById('fCidade').value))&&ok;
+      ok=showErr('fSegmento','mSegmento',!document.getElementById('fSegmento').value)&&ok;
+      ok=showErr('fValor','mValor',!document.getElementById('fValor').value)&&ok;
+      ok=showErr('fFreq','mFreq',!document.getElementById('fFreq').value)&&ok;
+      ok=showErr('fPerso','mPerso',!document.getElementById('fPerso').value)&&ok;
+      return ok;
+    }
+    return true;
+  };
 
   const form=document.getElementById('leadForm');
   form&&form.addEventListener('submit',async e=>{
     e.preventDefault();
-    let ok=true;
-    ok=showErr('fNome','mNome',!validNome(document.getElementById('fNome').value))&&ok;
-    ok=showErr('fEmpresa','mEmpresa',!validEmpresa(document.getElementById('fEmpresa').value))&&ok;
-    ok=showErr('fCnpj','mCnpj',!validCNPJ(document.getElementById('fCnpj').value))&&ok;
-    ok=showErr('fWhats','mWhats',!validPhone(document.getElementById('fWhats').value))&&ok;
-    ok=showErr('fEmail','mEmail',!validEmail(document.getElementById('fEmail').value.trim()))&&ok;
-    ok=showErr('fCidade','mCidade',!validCidade(document.getElementById('fCidade').value))&&ok;
-    ok=showErr('fSegmento','mSegmento',!document.getElementById('fSegmento').value)&&ok;
-    ok=showErr('fValor','mValor',!document.getElementById('fValor').value)&&ok;
-    ok=showErr('fFreq','mFreq',!document.getElementById('fFreq').value)&&ok;
-    ok=showErr('fPerso','mPerso',!document.getElementById('fPerso').value)&&ok;
-    if(!ok)return;
+    // Revalida as 2 etapas antes de enviar (garante integridade)
+    const okAll=window.__validateStepFn(1)&&window.__validateStepFn(2);
+    if(!okAll)return;
 
     // Captura tracking (UTMs + fbc/fbp + referrer + device)
     const url=new URL(window.location.href);
