@@ -1799,11 +1799,11 @@ body.modal-open{overflow:hidden}
     const eventID='lead.'+Date.now()+'.'+Math.random().toString(36).slice(2,8);
 
     const valorMedio=document.getElementById('fValor').value;
-    // Qualificacao: TODOS vao pro CRM. Unica excecao eh lojista/atacadista
-    // (redireciona pra obrigado-nao — futuramente sera LP2).
     const segmento=document.getElementById('fSegmento').value;
-    const isLojista=/loja|atacadista/i.test(segmento);
-    const qualificado=!isLojista;
+    // Qualificacao aberta: TODOS os leads vao pro CRM e pra pagina obrigado.
+    // Diferenciacao lojista fica apenas na TAG do CRM (LP-LOJAS vs LP-INDUSTRIAL)
+    // pra o cliente filtrar depois se quiser.
+    const qualificado=true;
 
     const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwE8hoCnTu3pifGN2NSan2VmVUbI44wYL7Wn3l2Dzghw6woRTnWLFim5N4BY4cXPmMUvA/exec';
     const payload={

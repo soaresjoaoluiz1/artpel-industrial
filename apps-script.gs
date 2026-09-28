@@ -22,8 +22,11 @@ function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
     const origem = String(body.origem || 'LP Industrial Art Pel');
-    // Roteia por origem: se contem "Loja" ou "Atacadista" -> aba LOJA, senao -> INDUSTRIAL
-    const isLoja = /loja|atacadista/i.test(origem);
+    // Roteia aba+tag POR SEGMENTO (nao mais por origem). Assim se um lead
+    // preenche a LP Industrial mas marca 'Loja ou atacadista' no segmento,
+    // ele cai na aba certa (LOJAS E DISTRIBUIDORES) com tag LP-LOJAS.
+    const segmento = String(body.segmento || '');
+    const isLoja = /loja|atacadista/i.test(segmento);
     const sheetName = isLoja ? SHEET_LOJA : SHEET_INDUSTRIAL;
     const tag = isLoja ? TAG_LOJA : TAG_INDUSTRIAL;
 
@@ -34,22 +37,13 @@ function doPost(e) {
     // Header automatico se aba vazia
     if (sheet.getLastRow() === 0) sheet.appendRow(getHeader());
 
-    // Regra de qualificacao: TODOS vao pro CRM, exceto lojistas/atacadistas
-    // (viram tag LP-LOJAS pra tratamento separado — LP2 futura)
-    const segmento = String(body.segmento || '');
-    const isLojistaSubmit = /loja|atacadista/i.test(segmento);
-    const shouldSendCRM = !isLojistaSubmit;
-
+    // Sem qualificacao: TODOS os leads vao pro CRM (lojista vira tag LP-LOJAS,
+    // industria vira LP-INDUSTRIAL — cliente filtra no CRM depois se quiser)
     let statusCRM = 'Não enviado';
     let crmResponse = '';
-
-    if (shouldSendCRM) {
-      const crmResult = enviarParaCRM(body, tag, origem);
-      statusCRM = crmResult.ok ? 'Enviado ✓ (' + crmResult.status + ')' : 'Erro (' + crmResult.status + ')';
-      crmResponse = String(crmResult.response || '').substring(0, 500);
-    } else {
-      statusCRM = 'Desqualificado — lojista (redirect LP2)';
-    }
+    const crmResult = enviarParaCRM(body, tag, origem);
+    statusCRM = crmResult.ok ? 'Enviado ✓ (' + crmResult.status + ')' : 'Erro (' + crmResult.status + ')';
+    crmResponse = String(crmResult.response || '').substring(0, 500);
 
     // Grava linha
     sheet.appendRow(buildRow(body, statusCRM, crmResponse));
@@ -207,9 +201,6 @@ function backfillCRM() {
       const status = String(row[iStatus] || '');
       if (!/N[aã]o enviado|Erro/i.test(status)) continue;
       const body = rowToBody(row, header);
-      // Pula desqualificados: apenas lojistas/atacadistas
-      const segmento = String(body.segmento || '');
-      if (/loja|atacadista/i.test(segmento)) continue;
       const tag = name === SHEET_LOJA ? TAG_LOJA : TAG_INDUSTRIAL;
       const result = enviarParaCRM(body, tag, name === SHEET_LOJA ? 'LP Loja Art Pel' : 'LP Industrial Art Pel');
       sheet.getRange(r + 1, iStatus + 1).setValue(result.ok ? 'Enviado ✓ backfill (' + result.status + ')' : 'Erro backfill (' + result.status + ')');
