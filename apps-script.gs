@@ -5,9 +5,9 @@
    ============================================================ */
 
 // ─── CONFIG (edite estes valores antes de publicar) ──────────
-const SHEET_ID = '1Zb_u9bTo0rImqFpy9AjvS1rOL7lEPeJd8ez50XxkTnc';
-const SHEET_INDUSTRIAL = 'INDUSTRIAL';
-const SHEET_LOJA = 'LOJA';
+const SHEET_ID = '12CwT97kHc6zfuriXeErO6kZ-kPo6BAYpAOy_J6_3SmA'; // ENTRADA DE LEADS ARTPEL EMBALAGENS - DROS AGENCIA
+const SHEET_INDUSTRIAL = 'INDUSTRIAS';
+const SHEET_LOJA = 'LOJAS E DISTRIBUIDORES';
 const CRM_WEBHOOK_URL = 'https://drosagencia.com.br/crm/api/webhooks/sheets/art-pel-embalagens-ltda';
 const CRM_WEBHOOK_SECRET = ''; // se o CRM Dros exigir header X-Webhook-Secret, cole aqui
 const TAG_INDUSTRIAL = 'LP-INDUSTRIAL';
