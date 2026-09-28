@@ -107,10 +107,10 @@ if(GA4_ID !== 'G-XXXXXXXXXX'){ gtag('js', new Date()); gtag('config', GA4_ID); }
 
 <style>
 :root{
-  /* Paleta Art Pel — extraída do print de referência */
-  --brand:#9A7B54;           /* Marrom acobreado (logo box + CTA primário) */
-  --brand-dark:#7A5F3E;      /* Hover / accent mais fechado */
-  --brand-light:#D4B896;     /* Bege claro (eyebrow, texto vertical direita) */
+  /* Paleta Art Pel — laranja da logo */
+  --brand:#E85D2A;           /* Laranja Art Pel (extraido da logo oficial) */
+  --brand-dark:#C24818;      /* Hover / accent mais fechado */
+  --brand-light:#FFC9A8;     /* Pessego claro (eyebrow, texto vertical em fundos escuros) */
   --ink:#2A2119;             /* Preto quente pra textos header/menu */
   --ink-soft:#5A4D3E;        /* Cinza texto secundário */
   --line:#E8E1D6;            /* Divisor claro sépia */
@@ -157,10 +157,11 @@ section[id]{scroll-margin-top:88px}
   padding:14px 32px;gap:32px;
 }
 .brand{display:flex;align-items:center;gap:12px}
-.brand__logo{width:44px;height:44px;object-fit:contain;flex-shrink:0}
-.brand__wm{display:flex;flex-direction:column;line-height:1}
-.brand__name{font-weight:800;font-size:20px;letter-spacing:0.02em;color:var(--ink)}
-.brand__tag{font-weight:500;font-size:10.5px;letter-spacing:0.28em;color:var(--ink-soft);margin-top:4px}
+.brand__logo{height:56px;width:auto;object-fit:contain;flex-shrink:0}
+/* Header: logo grande sozinha (wordmark ja faz parte da imagem) */
+.hdr .brand__logo{height:56px}
+/* Footer: ainda maior */
+.footer .brand__logo{height:72px}
 
 .nav{display:flex;align-items:center;gap:34px}
 .nav a{
@@ -974,11 +975,7 @@ body.modal-open{overflow:hidden}
 <header class="hdr">
   <div class="hdr__inner">
     <a href="/" class="brand" aria-label="Art Pel Embalagens">
-      <img src="assets/logo.png" alt="Art Pel" class="brand__logo">
-      <span class="brand__wm">
-        <span class="brand__name">ART PEL</span>
-        <span class="brand__tag">EMBALAGENS</span>
-      </span>
+      <img src="assets/logo.png" alt="Art Pel Embalagens" class="brand__logo">
     </a>
 
     <nav class="nav" aria-label="Navegacao principal">
@@ -1451,11 +1448,7 @@ body.modal-open{overflow:hidden}
 <footer class="footer">
   <div class="footer__top">
     <a href="/" class="brand" aria-label="Art Pel Embalagens">
-      <img src="assets/logo.png" alt="Art Pel" class="brand__logo">
-      <span class="brand__wm">
-        <span class="brand__name">ART PEL</span>
-        <span class="brand__tag">EMBALAGENS</span>
-      </span>
+      <img src="assets/logo.png" alt="Art Pel Embalagens" class="brand__logo">
     </a>
 
     <nav class="footer__nav" aria-label="Rodapé">
