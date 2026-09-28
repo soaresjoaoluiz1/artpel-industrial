@@ -1787,7 +1787,7 @@ body.modal-open{overflow:hidden}
 
   // Click no Solicitar analise: revalida etapa 1 primeiro (se invalida, volta
   // pra ela mostrando erros). Se ok, revalida etapa 2 e dispara submit.
-  const btnSubmit=document.getElementById('btnSubmit');
+  // (btnSubmit ja foi capturado no topo da IIFE — reusa)
   btnSubmit&&btnSubmit.addEventListener('click',function(ev){
     ev.preventDefault();
     if(!window.__validateStepFn){console.error('[modal] validateStepFn nao pronto');return;}
