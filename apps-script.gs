@@ -13,8 +13,8 @@ const CRM_WEBHOOK_SECRET = ''; // se o CRM Dros exigir header X-Webhook-Secret, 
 const TAG_INDUSTRIAL = 'LP-INDUSTRIAL';
 const TAG_LOJA = 'LP-LOJAS';
 
-// Qualificacao: valores considerados "abaixo do minimo comercial" (nao envia pro CRM)
-const VALORES_DESQUALIFICADOS = ['Até R$ 1.000', 'ate r$ 1.000'];
+// Qualificacao: quantidades consideradas "abaixo do minimo comercial" (nao envia pro CRM)
+const VALORES_DESQUALIFICADOS = ['Até 500 caixas', 'ate 500 caixas'];
 
 // ─── ENTRADA PRINCIPAL ───────────────────────────────────────
 function doPost(e) {
@@ -74,8 +74,8 @@ function doGet(e) {
 
 function getHeader() {
   return [
-    'Timestamp', 'Nome', 'Empresa', 'CNPJ', 'WhatsApp', 'E-mail', 'Cidade/Estado',
-    'Segmento', 'Valor médio', 'Frequência', 'Personalização',
+    'Timestamp', 'Nome', 'Empresa', 'WhatsApp', 'Cidade/Estado',
+    'Segmento', 'Quantidade de caixas', 'Frequência', 'Personalização',
     'UTM Source', 'UTM Medium', 'UTM Campaign', 'UTM Content', 'UTM Term',
     'GCLID', 'FBCLID', 'FBC', 'FBP', 'Referrer', 'Landing Page', 'User Agent', 'Device',
     'Event ID', 'Qualificado', 'Status CRM', 'CRM Response'
@@ -87,12 +87,10 @@ function buildRow(body, statusCRM, crmResponse) {
     body.timestamp || new Date().toISOString(),
     body.nome || '',
     body.empresa || '',
-    body.cnpj || '',
     body.whatsapp || '',
-    body.email || '',
     body.cidade || '',
     body.segmento || '',
-    body.valor_medio || '',
+    body.valor_medio || '',  // agora eh "Quantidade de caixas"
     body.frequencia || '',
     body.personalizacao || '',
     body.utm_source || '',
@@ -127,12 +125,10 @@ function enviarParaCRM(body, tag, origem) {
     const obs = [
       'Origem: ' + origem,
       'Empresa: ' + (body.empresa || '-'),
-      'CNPJ: ' + (body.cnpj || '-'),
       'Segmento: ' + (body.segmento || '-'),
-      'Valor médio de compra: ' + (body.valor_medio || '-'),
-      'Frequência: ' + (body.frequencia || '-'),
-      'Personalização: ' + (body.personalizacao || '-'),
-      'E-mail: ' + (body.email || '-'),
+      'Quantidade de caixas por compra: ' + (body.valor_medio || '-'),
+      'Frequência de compra: ' + (body.frequencia || '-'),
+      'Precisa personalização: ' + (body.personalizacao || '-'),
       'Cidade: ' + (body.cidade || '-'),
       '---',
       'Tracking:',
@@ -150,7 +146,6 @@ function enviarParaCRM(body, tag, origem) {
     const payload = {
       name: body.nome || '',
       phone: body.whatsapp || '',
-      email: body.email || '',
       city: cidadeName,
       state: uf,
       source: origem,
@@ -233,9 +228,9 @@ function backfillCRM() {
 function rowToBody(row, header) {
   const map = {};
   const keys = {
-    'Timestamp': 'timestamp', 'Nome': 'nome', 'Empresa': 'empresa', 'CNPJ': 'cnpj',
-    'WhatsApp': 'whatsapp', 'E-mail': 'email', 'Cidade/Estado': 'cidade',
-    'Segmento': 'segmento', 'Valor médio': 'valor_medio', 'Frequência': 'frequencia',
+    'Timestamp': 'timestamp', 'Nome': 'nome', 'Empresa': 'empresa',
+    'WhatsApp': 'whatsapp', 'Cidade/Estado': 'cidade',
+    'Segmento': 'segmento', 'Quantidade de caixas': 'valor_medio', 'Frequência': 'frequencia',
     'Personalização': 'personalizacao',
     'UTM Source': 'utm_source', 'UTM Medium': 'utm_medium', 'UTM Campaign': 'utm_campaign',
     'UTM Content': 'utm_content', 'UTM Term': 'utm_term',

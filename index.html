@@ -1561,16 +1561,17 @@ body.modal-open{overflow:hidden}
           <div class="field__msg" id="mSegmento">Selecione o segmento.</div>
         </div>
         <div class="field">
-          <label for="fValor">Valor médio de cada compra</label>
+          <label for="fValor">Quantidade de caixas por compra</label>
           <select id="fValor" name="valor_medio" required>
             <option value="">Selecione</option>
-            <option>Até R$ 1.000</option>
-            <option>R$ 1.000 a R$ 3.000</option>
-            <option>R$ 3.000 a R$ 5.000</option>
-            <option>R$ 5.000 a R$ 10.000</option>
-            <option>Acima de R$ 10.000</option>
+            <option>Até 500 caixas</option>
+            <option>500 a 1.000 caixas</option>
+            <option>1.000 a 3.000 caixas</option>
+            <option>3.000 a 5.000 caixas</option>
+            <option>5.000 a 10.000 caixas</option>
+            <option>Acima de 10.000 caixas</option>
           </select>
-          <div class="field__msg" id="mValor">Selecione o valor médio.</div>
+          <div class="field__msg" id="mValor">Selecione a quantidade.</div>
         </div>
         <div class="field">
           <label for="fFreq">Frequência de compra</label>
@@ -1777,9 +1778,9 @@ body.modal-open{overflow:hidden}
     const eventID='lead.'+Date.now()+'.'+Math.random().toString(36).slice(2,8);
 
     const valorMedio=document.getElementById('fValor').value;
-    // Qualificacao: se compra 'Ate R$ 1.000' OU perfil eh loja/atacadista, NAO envia pro CRM
-    // (redireciona pra pagina obrigado-nao — leva pra LP2 quando disponivel)
-    const isLowValue=/at[ée]\s*r\$\s*1\.000/i.test(valorMedio);
+    // Qualificacao: se qtd 'Ate 500 caixas' OU perfil eh loja/atacadista, NAO envia pro CRM
+    // (redireciona pra pagina obrigado-nao — lojista futuramente vai pra LP2)
+    const isLowValue=/at[ée]\s*500\s*caixas/i.test(valorMedio);
     const segmento=document.getElementById('fSegmento').value;
     const isLojista=/loja|atacadista/i.test(segmento);
     const qualificado=!isLowValue && !isLojista;
