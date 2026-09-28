@@ -824,6 +824,8 @@ section[id]{scroll-margin-top:88px}
   margin-top:24px;
 }
 .modal__actions .btn{flex:1;justify-content:center;padding:15px 22px}
+/* hidden do HTML sobrescrevendo display:inline-flex do .btn */
+.btn[hidden]{display:none !important}
 .modal__actions .btn--ghost{
   flex:0 0 auto;background:transparent;color:var(--ink-soft);
   border:1px solid var(--cream-line);
@@ -1530,19 +1532,9 @@ body.modal-open{overflow:hidden}
           <div class="field__msg" id="mEmpresa">Informe o nome da empresa.</div>
         </div>
         <div class="field">
-          <label for="fCnpj">CNPJ</label>
-          <input type="text" id="fCnpj" name="cnpj" placeholder="00.000.000/0000-00" inputmode="numeric" maxlength="18" required>
-          <div class="field__msg" id="mCnpj">CNPJ inválido. Confira os 14 dígitos.</div>
-        </div>
-        <div class="field">
           <label for="fWhats">WhatsApp</label>
           <input type="tel" id="fWhats" name="whatsapp" placeholder="(48) 99999-9999" inputmode="numeric" maxlength="15" autocomplete="tel" required>
           <div class="field__msg" id="mWhats">Use DDD + 9 na frente. Ex: (48) 99999-9999.</div>
-        </div>
-        <div class="field">
-          <label for="fEmail">E-mail</label>
-          <input type="email" id="fEmail" name="email" placeholder="nome@empresa.com.br" autocomplete="email" required>
-          <div class="field__msg" id="mEmail">E-mail inválido.</div>
         </div>
       </div>
 
@@ -1751,9 +1743,7 @@ body.modal-open{overflow:hidden}
       let ok=true;
       ok=showErr('fNome','mNome',!validNome(document.getElementById('fNome').value))&&ok;
       ok=showErr('fEmpresa','mEmpresa',!validEmpresa(document.getElementById('fEmpresa').value))&&ok;
-      ok=showErr('fCnpj','mCnpj',!validCNPJ(document.getElementById('fCnpj').value))&&ok;
       ok=showErr('fWhats','mWhats',!validPhone(document.getElementById('fWhats').value))&&ok;
-      ok=showErr('fEmail','mEmail',!validEmail(document.getElementById('fEmail').value.trim()))&&ok;
       return ok;
     }
     if(n===2){
