@@ -13,8 +13,9 @@ const CRM_WEBHOOK_SECRET = ''; // se o CRM Dros exigir header X-Webhook-Secret, 
 const TAG_INDUSTRIAL = 'LP-INDUSTRIAL';
 const TAG_LOJA = 'LP-LOJAS';
 
-// Qualificacao: quantidades consideradas "abaixo do minimo comercial" (nao envia pro CRM)
-const VALORES_DESQUALIFICADOS = ['Até 500 caixas', 'ate 500 caixas'];
+// Qualificacao: TODOS os leads vao pro CRM, exceto lojistas/atacadistas
+// (redirecionados pra LP2). Nao ha mais desqualificacao por quantidade.
+const VALORES_DESQUALIFICADOS = [];
 
 // ─── ENTRADA PRINCIPAL ───────────────────────────────────────
 function doPost(e) {
@@ -33,14 +34,11 @@ function doPost(e) {
     // Header automatico se aba vazia
     if (sheet.getLastRow() === 0) sheet.appendRow(getHeader());
 
-    // Regra de qualificacao (definida pelo cliente):
-    //   NAO envia pro CRM se: quantidade "Ate 500 caixas" OU perfil eh loja/atacadista
-    //   (lojistas viram tag LP-LOJAS mas vao pra tratamento separado — LP2)
-    const valorMedio = String(body.valor_medio || '');
+    // Regra de qualificacao: TODOS vao pro CRM, exceto lojistas/atacadistas
+    // (viram tag LP-LOJAS pra tratamento separado — LP2 futura)
     const segmento = String(body.segmento || '');
-    const isValorBaixo = VALORES_DESQUALIFICADOS.some(v => valorMedio.toLowerCase().includes(v.toLowerCase()));
     const isLojistaSubmit = /loja|atacadista/i.test(segmento);
-    const shouldSendCRM = !isValorBaixo && !isLojistaSubmit;
+    const shouldSendCRM = !isLojistaSubmit;
 
     let statusCRM = 'Não enviado';
     let crmResponse = '';
@@ -49,9 +47,7 @@ function doPost(e) {
       const crmResult = enviarParaCRM(body, tag, origem);
       statusCRM = crmResult.ok ? 'Enviado ✓ (' + crmResult.status + ')' : 'Erro (' + crmResult.status + ')';
       crmResponse = String(crmResult.response || '').substring(0, 500);
-    } else if (isValorBaixo) {
-      statusCRM = 'Desqualificado — <500 caixas';
-    } else if (isLojistaSubmit) {
+    } else {
       statusCRM = 'Desqualificado — lojista (redirect LP2)';
     }
 
@@ -211,10 +207,8 @@ function backfillCRM() {
       const status = String(row[iStatus] || '');
       if (!/N[aã]o enviado|Erro/i.test(status)) continue;
       const body = rowToBody(row, header);
-      // Pula desqualificados por regra
-      const valorMedio = String(body.valor_medio || '');
+      // Pula desqualificados: apenas lojistas/atacadistas
       const segmento = String(body.segmento || '');
-      if (VALORES_DESQUALIFICADOS.some(v => valorMedio.toLowerCase().includes(v.toLowerCase()))) continue;
       if (/loja|atacadista/i.test(segmento)) continue;
       const tag = name === SHEET_LOJA ? TAG_LOJA : TAG_INDUSTRIAL;
       const result = enviarParaCRM(body, tag, name === SHEET_LOJA ? 'LP Loja Art Pel' : 'LP Industrial Art Pel');
