@@ -52,14 +52,15 @@ if(META_PIXEL_ID !== 'PIXEL_ID'){ fbq('init', META_PIXEL_ID); fbq('track', 'Page
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID&ev=PageView&noscript=1" alt=""/></noscript>
 
-<!-- Google Analytics 4 -->
-<!-- TODO: substituir G-XXXXXXXXXX pelo ID real (GA4 Measurement ID) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<!-- Google tag (gtag.js) - Google Ads + GA4 (GA4 ainda como placeholder) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18498510154"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18498510154');
 var GA4_ID = 'G-XXXXXXXXXX';
-if(GA4_ID !== 'G-XXXXXXXXXX'){ gtag('js', new Date()); gtag('config', GA4_ID); }
+if(GA4_ID !== 'G-XXXXXXXXXX'){ gtag('config', GA4_ID); }
 </script>
 
 <!-- JSON-LD: Organization + LocalBusiness -->
