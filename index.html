@@ -993,19 +993,20 @@ body.modal-open{overflow:hidden}
   /* No mobile, slider vira scroll horizontal nativo com snap — mais robusto
      que o JS translateX que causava card cortado + overflow */
   .slider__btn{display:none}
-  .slider__viewport{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+  .slider__viewport{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;max-width:100%}
   .slider__viewport::-webkit-scrollbar{display:none}
   .slider__viewport{scrollbar-width:none}
-  .slider__track{transform:none !important;padding:4px 20px 4px 0}
-  .testimonial{flex:0 0 88%;scroll-snap-align:start}
+  .slider__track{transform:none !important;padding:4px 0;gap:14px}
+  .testimonial{flex:0 0 calc(100% - 8px);scroll-snap-align:center;box-sizing:border-box;max-width:calc(100% - 8px)}
   .faq-section{padding:56px 20px}
   .modal__card{padding:36px 24px 28px}
   .modal__title{font-size:22px}
   .modal__actions{flex-direction:column-reverse}
   .modal__actions .btn{width:100%}
-  .footer__top{flex-direction:column;align-items:flex-start;gap:24px}
-  .footer__nav{gap:22px;flex-wrap:wrap}
-  .footer__bottom{flex-direction:column;gap:8px;align-items:flex-start}
+  .footer__top{flex-direction:column;align-items:center;text-align:center;gap:24px}
+  .footer__nav{gap:22px;flex-wrap:wrap;justify-content:center}
+  .footer__meta{text-align:center}
+  .footer__bottom{flex-direction:column;gap:8px;align-items:center;text-align:center}
 }
 @media (max-width:520px){
   .h1{font-size:34px}
@@ -1542,14 +1543,8 @@ body.modal-open{overflow:hidden}
     </div>
 
     <div class="footer__social" aria-label="Redes sociais">
-      <a href="#" aria-label="Instagram">
+      <a href="https://instagram.com/artpel.embalagens" target="_blank" rel="noopener" aria-label="Instagram @artpel.embalagens">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-      </a>
-      <a href="#" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="#" aria-label="YouTube">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 6.5a2.8 2.8 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.5 2.8 2.8 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.5z"/><path d="M10 15V9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>
       </a>
     </div>
   </div>
@@ -1557,7 +1552,7 @@ body.modal-open{overflow:hidden}
   <div class="footer__bottom">
     <div class="footer__bottom-inner">
       <span>&copy; 2026 Art Pel Embalagens. Todos os direitos reservados.</span>
-      <span>Produzido por <a href="https://agenciadros.com.br" target="_blank" rel="noopener" class="footer__credit">Agência Dros</a></span>
+      <span>Produzido por <a href="https://drosagencia.com.br" target="_blank" rel="noopener" class="footer__credit">Dros Agência</a></span>
     </div>
   </div>
 </footer>
