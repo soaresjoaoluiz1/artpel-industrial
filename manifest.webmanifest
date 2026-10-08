@@ -1,0 +1,17 @@
+{
+  "name": "Art Pel Embalagens",
+  "short_name": "Art Pel",
+  "description": "Fabrica de embalagens em Sao Jose/SC. Caixas de papelao e descartaveis para industria, lojas e atacado.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F4F1",
+  "theme_color": "#141924",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "/assets/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/logo.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" }
+  ]
+}

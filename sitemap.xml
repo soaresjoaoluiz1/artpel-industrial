@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
   <url>
     <loc>https://www.artpelembalagens.com.br/</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.artpelembalagens.com.br/assets/og-image.jpg</image:loc>
+      <image:title>Art Pel Embalagens — Fabrica de embalagens em Sao Jose/SC</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.artpelembalagens.com.br/lojas/</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.artpelembalagens.com.br/lojas/assets/og-image.jpg</image:loc>
+      <image:title>Art Pel para Lojas e Atacado — Embalagens direto da fabrica</image:title>
+    </image:image>
   </url>
 </urlset>
